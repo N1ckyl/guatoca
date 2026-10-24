@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>La Guatoca</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- BURBUJAS FLOTANTES ANIMADAS EN EL FONDO (z-index: 0) -->
+  <div class="bg-bubble-layer">
+    <div class="bg-bubble b1"></div>
+    <div class="bg-bubble b2"></div>
+    <div class="bg-bubble b3"></div>
+    <div class="bg-bubble b4"></div>
+    <div class="bg-bubble b5"></div>
+  </div>
+
+  <div id="app">
+
+    <!-- PANTALLA 1: ¿QUIÉN TOMA HOY? (IMAGEN 1) -->
+    <section id="screen-players" class="screen active">
+      <!-- Barra Superior -->
+      <header class="top-nav-bar">
+        <button id="btn-lang-toggle" class="circle-btn flag-btn" title="Idioma">
+          <img id="current-lang-flag" src="assets/ui/es_ES.png" alt="Idioma">
+        </button>
+        <div class="top-nav-right">
+          <button id="btn-vip-status" class="circle-btn crown-btn" title="VIP">
+            <img src="assets/ui/GoldenCrown.png" alt="VIP">
+          </button>
+          <button id="btn-settings" class="circle-btn settings-btn" title="Ajustes">
+            <img src="assets/ui/settings.png" alt="Ajustes">
+          </button>
+        </div>
+      </header>
+
+      <!-- Título Principal -->
+      <div class="screen-title-box">
+        <h1 class="main-screen-title">¿QUIÉN TOMA HOY?</h1>
+      </div>
+
+      <!-- Contenedor Central: Botón circular (+) y Jugadores -->
+      <div class="players-canvas">
+        <div class="add-player-circle-btn" id="btn-open-add-player" title="Añadir jugador">
+          <span class="plus-icon">+</span>
+        </div>
+
+        <!-- Fichas de jugadores añadidos -->
+        <div id="added-players-container" class="added-players-grid"></div>
+      </div>
+
+      <!-- Botón Inferior Empezar -->
+      <div class="bottom-actions-bar">
+        <button id="btn-start-game" class="btn-3d-empezar" disabled>EMPEZAR</button>
+      </div>
+    </section>
+
+    <!-- MODAL AÑADIR JUGADOR (IMAGEN 2) -->
+    <div id="add-player-modal" class="modal-overlay hidden">
+      <div class="player-modal-card">
+        <button id="btn-close-add-modal" class="btn-modal-close" title="Cerrar">
+          <img src="assets/ui/cancel_icon.png" alt="Cerrar">
+        </button>
+
+        <div class="avatar-carousel">
+          <button id="btn-prev-avatar" class="avatar-arrow-btn">◀</button>
+          <div class="avatar-ring">
+            <img id="modal-avatar-img" src="assets/avatars/smiley.png" alt="Avatar">
+          </div>
+          <button id="btn-next-avatar" class="avatar-arrow-btn">▶</button>
+        </div>
+
+        <div class="name-input-wrapper">
+          <input type="text" id="modal-player-name" placeholder="Nombre..." maxlength="15" autocomplete="off">
+        </div>
+
+        <button id="btn-confirm-add-player" class="btn-3d-agregar">AGREGAR</button>
+      </div>
+    </div>
+
+    <!-- PANTALLA 2: ¿QUÉ VAMOS A JUGAR? (IMÁGENES 3 Y 4) -->
+    <section id="screen-modes" class="screen">
+      <!-- Barra Superior -->
+      <header class="top-nav-bar">
+        <button id="btn-back-to-players" class="circle-btn back-btn" title="Volver">
+          <span class="back-arrow-icon">◀</span>
+        </button>
+        <div class="top-nav-right">
+          <button class="circle-btn crown-btn" title="VIP">
+            <img src="assets/ui/GoldenCrown.png" alt="VIP">
+          </button>
+          <button class="circle-btn settings-btn" id="btn-settings-modes" title="Ajustes">
+            <img src="assets/ui/settings.png" alt="Ajustes">
+          </button>
+        </div>
+      </header>
+
+      <!-- Título Pantalla Modos -->
+      <div class="screen-title-box">
+        <h1 class="main-screen-title">¿QUÉ VAMOS A JUGAR?</h1>
+      </div>
+
+      <!-- Pestañas TABLEROS / MODOS -->
+      <div class="game-tabs-nav">
+        <button class="game-tab-item active" data-tab="tableros">TABLEROS</button>
+        <button class="game-tab-item" data-tab="modos">MODOS</button>
+      </div>
+
+      <!-- Contenedor Tableros (Imagen 3) -->
+      <div id="tab-tableros-view" class="modes-scroll-view active">
+        <div class="mode-buttons-list" id="boards-buttons-list">
+          <button class="mode-image-button" data-mode="classic">
+            <img src="assets/ui/classic.png" alt="Clásico">
+            <span class="banner-title-text">CLÁSICO</span>
+          </button>
+          <button class="mode-image-button" data-mode="hammered">
+            <img src="assets/ui/hammered.png" alt="Etílico">
+            <span class="banner-title-text">ETÍLICO</span>
+          </button>
+          <button class="mode-image-button" data-mode="hot">
+            <img src="assets/ui/hot.png" alt="Hot">
+            <span class="banner-title-text">HOT</span>
+          </button>
+          <button class="mode-image-button" data-mode="couple">
+            <img src="assets/ui/couple.png" alt="Pareja">
+            <span class="banner-title-text">PAREJA</span>
+          </button>
+          <button class="mode-image-button" data-mode="flash">
+            <img src="assets/ui/flash.png" alt="Flash">
+            <span class="banner-title-text">FLASH</span>
+          </button>
+          <button class="mode-image-button" data-mode="xxl">
+            <img src="assets/ui/xxl.png" alt="XXL">
+            <span class="banner-title-text">XXL</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Contenedor Modos Rápidos (Imagen 4) -->
+      <div id="tab-modos-view" class="modes-scroll-view">
+        <div class="mode-buttons-list" id="quick-modes-buttons-list">
+          <button class="mode-image-button" data-mode="nhie">
+            <img src="assets/ui/nhie.png" alt="Yo Nunca">
+            <span class="banner-title-text">YO NUNCA</span>
+          </button>
+          <button class="mode-image-button" data-mode="tod">
+            <img src="assets/ui/tod.png" alt="Verdad o Reto">
+            <span class="banner-title-text banner-text-multiline">VERDAD O<br>RETO</span>
+          </button>
+          <button class="mode-image-button" data-mode="mlt">
+            <img src="assets/ui/mlt.png" alt="Quién es más probable">
+            <span class="banner-title-text banner-text-multiline banner-text-small">QUIÉN ES MÁS<br>PROBABLE QUE</span>
+          </button>
+          <button class="mode-image-button" data-mode="versus">
+            <img src="assets/ui/versus.png" alt="Versus">
+            <span class="banner-title-text">VERSUS</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- MODAL DE EXPLICACIÓN DE JUEGO (NUEVAS IMÁGENES 1 Y 2) -->
+    <div id="explanation-modal" class="modal-overlay hidden">
+      <div class="explanation-card" id="explanation-card-element">
+        <button id="btn-close-explanation" class="btn-explanation-close" title="Cerrar">✕</button>
+
+        <h2 class="explanation-title" id="explanation-title">QUIÉN ES MÁS PROBABLE QUE</h2>
+        <div class="explanation-divider"></div>
+
+        <p class="explanation-desc" id="explanation-desc">
+          Solo frases de "¿Quién es más probable que...?". A la cuenta de 3, señalen a quien crean que encaja. El más señalado toma.
+        </p>
+
+        <!-- Tarjeta blanca de ejemplo con puntos carrusel -->
+        <div class="explanation-example-box">
+          <p id="explanation-example-text">¿Quién tiene más probabilidad de hacer amigos con extraños en una peda?</p>
+          <div class="example-dots" id="example-dots">
+            <span class="dot active"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+
+        <button id="btn-explanation-play" class="btn-3d-jugar">JUGAR</button>
+      </div>
+    </div>
+
+    <!-- PANTALLA 3: TABLERO DE JUEGO EN ESPIRAL (NUEVA IMAGEN 3) -->
+    <section id="screen-board" class="screen board-screen-bg">
+      <header class="board-top-nav-bar">
+        <button id="btn-exit-board" class="circle-btn back-btn" title="Volver">
+          <span class="back-arrow-icon">◀</span>
+        </button>
+        <button id="btn-help-board" class="circle-btn help-btn" title="Instrucciones">
+          <span class="help-question-icon">?</span>
+        </button>
+      </header>
+
+      <!-- Fichas superiores de los jugadores -->
+      <div class="board-players-bar" id="board-players-bar"></div>
+
+      <!-- Tablero Espiral Oficial 9x8 -->
+      <div class="spiral-board-frame">
+        <div class="spiral-board-container" id="spiral-board-grid"></div>
+      </div>
+
+      <!-- Barra de Dado Inferior -->
+      <div class="board-bottom-dice-area">
+        <div class="dice-box-white" id="dice-button">
+          <img id="dice-img" src="assets/dice/1_DiceClassic.png" alt="Dado">
+        </div>
+      </div>
+    </section>
+
+    <!-- PANTALLA 4: MODO FIESTA (Yo nunca, Verdad o Reto, etc. - IMAGEN 1) -->
+    <section id="screen-cards-mode" class="screen screen-cards-bg">
+      <header class="top-nav-bar cards-mode-nav">
+        <button id="btn-exit-cards-mode" class="circle-btn back-btn-cyan" title="Salir">
+          <span class="back-arrow-icon">◀</span>
+        </button>
+        <h2 id="cards-header-title" class="cards-mode-header-title">YO NUNCA</h2>
+        <div class="nav-placeholder"></div>
+      </header>
+
+      <!-- Jugadores horizontales con sus 5 rayas inferiores (Imagen 1) -->
+      <div class="cards-players-bar" id="cards-players-bar"></div>
+
+      <!-- Frase central grande blanca centrada (Imagen 1) -->
+      <div class="cards-mode-stage">
+        <div class="cards-phrase-container">
+          <p class="cards-phrase-text" id="party-card-text">Cargando...</p>
+        </div>
+
+        <div id="tod-choice-buttons" class="tod-action-group hidden">
+          <button id="btn-choose-truth" class="btn-tod btn-tod-truth">VERDAD</button>
+          <button id="btn-choose-dare" class="btn-tod btn-tod-dare">RETO</button>
+        </div>
+      </div>
+
+      <!-- Botón inferior SIGUIENTE azul 3D (Imagen 1) -->
+      <div class="cards-bottom-actions">
+        <button id="btn-next-phrase" class="btn-3d-siguiente">SIGUIENTE</button>
+      </div>
+    </section>
+
+    <!-- MODAL DE CARTA FLIP DEL TABLERO -->
+    <div id="card-modal" class="modal-overlay hidden">
+      <div class="game-card-popup">
+        <div class="game-card-badge" id="card-type-tag">PAGAR</div>
+        <div class="game-card-player-info">
+          <img id="card-player-avatar-img" src="assets/avatars/cerveza.png" alt="Jugador">
+          <span id="card-target-player" class="card-turn-player-name">Jugador 1</span>
+        </div>
+        <div class="game-card-body">
+          <p class="game-card-text" id="card-phrase-text">¡Texto del reto!</p>
+        </div>
+        <button id="btn-close-card" class="btn-3d-card-action">HECHO</button>
+      </div>
+    </div>
+
+    <!-- MODAL DE AJUSTES E IDIOMA -->
+    <div id="settings-modal" class="modal-overlay hidden">
+      <div class="player-modal-card settings-card">
+        <button id="btn-close-settings" class="btn-modal-close" title="Cerrar">
+          <img src="assets/ui/cancel_icon.png" alt="Cerrar">
+        </button>
+        <h2 class="modal-title">AJUSTES</h2>
+
+        <div class="settings-group">
+          <label>Idioma</label>
+          <div class="lang-selector-grid">
+            <button class="lang-pill active" data-lang="es_ES">
+              <img src="assets/ui/es_ES.png" alt="España"> Español (España)
+            </button>
+            <button class="lang-pill" data-lang="es_419">
+              <img src="assets/ui/es_419.png" alt="Latinoamérica"> Español (Latam)
+            </button>
+          </div>
+        </div>
+
+        <div class="settings-group">
+          <label>Sonido</label>
+          <button id="btn-toggle-sound" class="btn-setting-toggle">Activado 🔊</button>
+        </div>
+
+        <div class="settings-group">
+          <label>Estado VIP</label>
+          <div class="vip-status-pill">⭐ 100% Desbloqueado</div>
+        </div>
+
+        <button id="btn-save-settings" class="btn-3d-agregar">GUARDAR</button>
+      </div>
+    </div>
+
+    <!-- MODAL DE PODIO / FIN DE PARTIDA -->
+    <div id="gameover-modal" class="modal-overlay hidden">
+      <div class="player-modal-card victory-card">
+        <h2 class="modal-title" style="color: #ffbe0b;">🏆 ¡VICTORIA! 🏆</h2>
+        <p class="victory-subtitle">¡<span id="winner-name">Jugador</span> ha ganado la partida!</p>
+        <div class="podium-display" id="podium-display"></div>
+        <div class="modal-actions-row">
+          <button id="btn-play-again" class="btn-3d-agregar" style="flex:1;">JUGAR DE NUEVO</button>
+          <button id="btn-return-home" class="btn-3d-empezar" style="flex:1;">INICIO</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

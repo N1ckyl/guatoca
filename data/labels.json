@@ -1,0 +1,41 @@
+{
+  "modes": {
+    "classic": "CLÁSICO",
+    "hammered": "ETÍLICO",
+    "hot": "HOT",
+    "couple": "PAREJA",
+    "flash": "FLASH",
+    "xxl": "XXL",
+    "nhie": "YO NUNCA",
+    "tod": "VERDAD O RETO",
+    "mlt": "QUIÉN ES MÁS PROBABLE QUE",
+    "versus": "VERSUS"
+  },
+  "categories": {
+    "drink": "Pagar",
+    "event": "Evento",
+    "hot": "Hot",
+    "hot1": "Hot Nivel 1",
+    "hot2": "Hot Nivel 2",
+    "hot3": "Hot Nivel 3",
+    "truth": "Verdad",
+    "dare": "Reto",
+    "nhie": "Yo nunca",
+    "mlt": "Quién es más probable",
+    "versus": "Versus",
+    "start": "START",
+    "meta": "END"
+  },
+  "descriptions": {
+    "classic": "El tablero más equilibrado y versátil para todos los tipos de fiestas.",
+    "hammered": "¿Quieres conseguir el efecto rápidamente? Juega al tablero etílico y llega como puedas a la meta.",
+    "hot": "¿Buscas algo más que unas risas? Solo los más valientes y calientes se atreverán a probar el tablero HOT.",
+    "couple": "¿Aburrido/a con tu pareja? Pasad un rato romántico conociéndoos, riendo y calentándoos con este tablero.",
+    "flash": "¿Buscas echar una partida rápida? Desbloquea un tablero más corto y propúlsate por sus 35 casillas hacia la meta.",
+    "xxl": "¿Nunca te cansas de jugar a La Guatoca? Hazte con el tablero XXL y sus 85 casillas para disfrutar durante más tiempo.",
+    "nhie": "Únicamente frases de \"Yo nunca\". Beben todos los jugadores que SÍ hayan realizado la acción.",
+    "tod": "Por turnos, cada jugador elige entre Verdad o Reto y bebe si no es lo suficientemente valiente como para cumplir con su frase.",
+    "mlt": "Solo frases de \"¿Quién es más probable que...?\". A la cuenta de 3, señalen a quien crean que encaja. El más señalado bebe.",
+    "versus": "Ponte a prueba a ti y a tus amigos. Formad dos equipos y evitad beber enfrentándoos en diferentes juegos."
+  }
+}
