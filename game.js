@@ -116,21 +116,30 @@ function drawCardWithoutRepeat(category, levelId, playerName) {
     catKey = hotKeys[Math.floor(Math.random() * hotKeys.length)];
   }
 
+  // Clave aislada por modo para respetar estrictamente las preguntas extraídas de cada modo
+  const deckKey = `${levelId || 'classic'}_${catKey}`;
+
   // Si la baraja está vacía, clonar y barajar
-  if (!cardDecks[catKey] || cardDecks[catKey].length === 0) {
+  if (!cardDecks[deckKey] || cardDecks[deckKey].length === 0) {
     let pool = (gameData.cards[catKey] || gameData.cards['drink'] || []).slice();
-    if (levelId && pool.some(c => c.games && c.games.toLowerCase().includes(levelId.toLowerCase()))) {
-      pool = pool.filter(c => !c.games || c.games.toLowerCase().includes(levelId.toLowerCase()));
+    
+    // Respetar estrictamente las preguntas de cada modo extraídas en REA
+    if (levelId) {
+      const modeTaggedCards = pool.filter(c => c.games && c.games.toLowerCase().includes(levelId.toLowerCase()));
+      if (modeTaggedCards.length > 0) {
+        pool = modeTaggedCards;
+      }
     }
+
     // Fisher-Yates shuffle
     for (let i = pool.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [pool[i], pool[j]] = [pool[j], pool[i]];
     }
-    cardDecks[catKey] = pool;
+    cardDecks[deckKey] = pool;
   }
 
-  const item = cardDecks[catKey].pop() || { text: '¡Pagan todos un trago!' };
+  const item = cardDecks[deckKey].pop() || { text: '¡Pagan todos un trago!' };
   let text = item.text || '¡Pagan todos un trago!';
 
   text = text.replace(/{turn}/g, playerName);
@@ -240,12 +249,13 @@ const XXL_COORDS = [
   { col: 5, row: 4, spanCol: 2, spanRow: 2, isEnd: true }
 ];
 
-// --- CONFIGURACIÓN DE TABLEROS ---
+// --- CONFIGURACIÓN DE TABLEROS (ESTILOS Y PREGUNTAS EXTRAÍDAS DE UNITY) ---
 const BOARD_CONFIGS = {
   classic: {
     coords: SPIRAL_COORDS,
     cols: 9,
     rows: 8,
+    themeClass: 'theme-classic',
     className: 'board-classic',
     categories: ['reto', 'tomar', 'nhie', 'evento', 'verdad', 'tomar', 'reto', 'nhie', 'evento', 'verdad', 'tomar']
   },
@@ -253,27 +263,31 @@ const BOARD_CONFIGS = {
     coords: SPIRAL_COORDS,
     cols: 9,
     rows: 8,
-    className: 'board-classic',
-    categories: ['tomar', 'reto', 'tomar', 'evento', 'tomar', 'nhie', 'tomar', 'verdad', 'tomar']
+    themeClass: 'theme-hammered',
+    className: 'board-hammered',
+    categories: ['tomar', 'evento', 'tomar', 'reto', 'tomar', 'nhie', 'tomar', 'verdad', 'evento', 'tomar']
   },
   hot: {
     coords: SPIRAL_COORDS,
     cols: 9,
     rows: 8,
-    className: 'board-classic',
-    categories: ['reto', 'hot', 'tomar', 'verdad', 'hot', 'nhie', 'evento', 'hot', 'tomar']
+    themeClass: 'theme-hot',
+    className: 'board-hot',
+    categories: ['hot', 'reto', 'verdad', 'hot', 'tomar', 'hot', 'nhie', 'reto', 'verdad', 'hot']
   },
   couple: {
     coords: SPIRAL_COORDS,
     cols: 9,
     rows: 8,
-    className: 'board-classic',
-    categories: ['verdad', 'reto', 'tomar', 'evento', 'nhie', 'verdad', 'reto', 'hot']
+    themeClass: 'theme-couple',
+    className: 'board-couple',
+    categories: ['verdad', 'reto', 'tomar', 'evento', 'verdad', 'hot', 'reto', 'nhie', 'verdad', 'tomar']
   },
   flash: {
     coords: FLASH_COORDS,
     cols: 7,
     rows: 6,
+    themeClass: 'theme-flash',
     className: 'board-flash',
     categories: ['flash', 'nhie', 'tomar', 'flash', 'nhie', 'reto', 'flash', 'nhie', 'tomar']
   },
@@ -281,6 +295,7 @@ const BOARD_CONFIGS = {
     coords: XXL_COORDS,
     cols: 10,
     rows: 9,
+    themeClass: 'theme-xxl',
     className: 'board-xxl',
     categories: ['reto', 'tomar', 'nhie', 'evento', 'verdad', 'hot', 'tomar', 'reto', 'nhie', 'evento', 'verdad', 'tomar']
   }
@@ -675,11 +690,17 @@ function startLevel(level) {
 function initSpiralBoard(level) {
   activeBoardConfig = BOARD_CONFIGS[level.id] || BOARD_CONFIGS.classic;
 
+  // Actualizar fondo temático extraído para la pantalla del tablero
+  const screenBoard = document.getElementById('screen-board');
+  if (screenBoard) {
+    screenBoard.className = 'screen screen-board ' + (activeBoardConfig.themeClass || 'theme-classic');
+  }
+
   renderBoardPlayersBar();
   renderSpiralBoardGrid();
   updatePlayerTokensPosition();
 
-  // Resetear dado cara 1
+  // Resetear dado cara 1 con el dado específico del modo extraído
   const dicePrefix = getDiceFolderPrefix(level.id);
   document.getElementById('dice-img').src = `assets/dice/1_Dice${dicePrefix}.png`;
 }
@@ -906,6 +927,16 @@ function showCardModal(category, levelId, player, onDismiss) {
 
   const phrase = drawCardWithoutRepeat(category, levelId, player.name);
   phraseEl.textContent = phrase;
+
+  // Duck sprite fiel a Unity: en modo HOT se muestra la oca censurada, en los demás ocasola
+  const duckImg = document.querySelector('.card-duck-sprite');
+  if (duckImg) {
+    if (levelId === 'hot' || category === 'hot') {
+      duckImg.src = 'assets/cards/ocacensored.png';
+    } else {
+      duckImg.src = 'assets/cards/ocasola.png';
+    }
+  }
 
   document.getElementById('card-modal').classList.remove('hidden');
   playSound('card');

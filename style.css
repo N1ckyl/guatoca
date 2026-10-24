@@ -1433,26 +1433,113 @@ body {
 }
 
 /* ========================================================
-   COLORES OFICIALES DE CASILLAS DEL TABLERO
+   FONDOS Y ESTILOS EXTRAÍDOS DE UNITY PARA CADA TABLERO
    ======================================================== */
-.tile-tomar { background: #fef08a; border-color: #eab308; }
-.tile-nhie { background: #bae6fd; border-color: #38bdf8; }
-.tile-verdad { background: #bbf7d0; border-color: #4ade80; }
-.tile-reto { background: #fbcfe8; border-color: #f472b6; }
-.tile-evento { background: #e9d5ff; border-color: #c084fc; }
-.tile-hot { background: #fed7aa; border-color: #fb923c; }
+#screen-board.theme-classic {
+  background: url('assets/boards/1_fondo_tablero-52.png') center / cover no-repeat !important;
+}
 
-/* TABLEROS ADAPTATIVOS (FLASH: 35 CASILLAS, XXL: 85 CASILLAS) */
+#screen-board.theme-hammered {
+  background: url('assets/boards/fondo_tablero_etilico.png') center / cover no-repeat !important;
+}
+
+#screen-board.theme-hot {
+  background: url('assets/boards/1_fondo_tablero_HOT.png') center / cover no-repeat !important;
+}
+
+#screen-board.theme-couple {
+  background: url('assets/boards/fondo_tablero_parejas.png') center / cover no-repeat !important;
+}
+
+#screen-board.theme-flash {
+  background: url('assets/boards/FONDO_FLASH.png') center / cover no-repeat !important;
+}
+
+#screen-board.theme-xxl {
+  background: url('assets/boards/XXL_FONDO.png') center / cover no-repeat !important;
+}
+
+/* Ilustraciones de pista oficiales de Unity en cada tablero */
+.spiral-board-container.board-classic {
+  background: #ffffff url('assets/boards/tableroclassic.png') center / contain no-repeat !important;
+}
+
+.spiral-board-container.board-hammered {
+  background: #091a2e url('assets/boards/tableroetilico.png') center / contain no-repeat !important;
+  box-shadow: 0 0 25px rgba(5, 177, 223, 0.45);
+}
+
+.spiral-board-container.board-hot {
+  background: #250212 url('assets/boards/tablerohot.png') center / contain no-repeat !important;
+  box-shadow: 0 0 25px rgba(225, 23, 68, 0.55);
+}
+
+.spiral-board-container.board-couple {
+  background: #200217 url('assets/boards/tableropareja.png') center / contain no-repeat !important;
+  box-shadow: 0 0 25px rgba(196, 50, 134, 0.5);
+}
+
 .spiral-board-container.board-flash {
+  background: #021a30 url('assets/boards/tableroflash.png') center / contain no-repeat !important;
   grid-template-columns: repeat(7, 1fr) !important;
   grid-template-rows: repeat(6, 1fr) !important;
   aspect-ratio: 7 / 6 !important;
 }
 
 .spiral-board-container.board-xxl {
+  background: #1c0528 url('assets/boards/tableroxxl.png') center / contain no-repeat !important;
   grid-template-columns: repeat(10, 1fr) !important;
   grid-template-rows: repeat(9, 1fr) !important;
   aspect-ratio: 10 / 9 !important;
+}
+
+/* ========================================================
+   COLORES OFICIALES DE CASILLAS DEL TABLERO
+   ======================================================== */
+.tile-tomar { background: rgba(254, 240, 138, 0.9); border-color: #eab308; color: #713f12; }
+.tile-nhie { background: rgba(186, 230, 253, 0.9); border-color: #38bdf8; color: #0c4a6e; }
+.tile-verdad { background: rgba(187, 247, 208, 0.9); border-color: #4ade80; color: #14532d; }
+.tile-reto { background: rgba(251, 207, 232, 0.9); border-color: #f472b6; color: #831843; }
+.tile-evento { background: rgba(233, 213, 255, 0.9); border-color: #c084fc; color: #581c87; }
+.tile-hot { background: rgba(254, 215, 170, 0.9); border-color: #fb923c; color: #7c2d12; }
+
+/* Estilo temático de casillas en modo HOT */
+.board-hot .spiral-tile {
+  box-shadow: 0 0 8px rgba(255, 23, 68, 0.4);
+}
+.board-hot .tile-start {
+  color: #ff1744 !important;
+  border-color: #ff1744 !important;
+}
+.board-hot .tile-end {
+  color: #ff3d00 !important;
+  border-color: #ff9100 !important;
+}
+
+/* Estilo temático de casillas en modo PAREJA */
+.board-couple .spiral-tile {
+  box-shadow: 0 0 8px rgba(236, 72, 153, 0.45);
+}
+.board-couple .tile-start {
+  color: #e11d48 !important;
+  border-color: #fb7185 !important;
+}
+.board-couple .tile-end {
+  color: #c026d3 !important;
+  border-color: #f472b6 !important;
+}
+
+/* Estilo temático de casillas en modo ETÍLICO */
+.board-hammered .spiral-tile {
+  box-shadow: 0 0 8px rgba(5, 177, 223, 0.45);
+}
+.board-hammered .tile-start {
+  color: #0284c7 !important;
+  border-color: #06b6d4 !important;
+}
+.board-hammered .tile-end {
+  color: #0891b2 !important;
+  border-color: #a3e635 !important;
 }
 
 /* ========================================================
