@@ -159,6 +159,10 @@
             <img src="assets/ui/versus.png" alt="Versus">
             <span class="banner-title-text">VERSUS</span>
           </button>
+          <button class="mode-image-button" data-mode="colordice">
+            <img src="assets/ui/classic.png" alt="Dado de Colores" style="filter: hue-rotate(150deg) saturate(1.8);">
+            <span class="banner-title-text banner-text-multiline">DADO DE<br>COLORES</span>
+          </button>
         </div>
       </div>
     </section>
@@ -247,18 +251,108 @@
       </div>
     </section>
 
-    <!-- MODAL DE CARTA FLIP DEL TABLERO -->
+    <!-- PANTALLA 5: MODO DADO DE COLORES -->
+    <section id="screen-colordice-mode" class="screen">
+      <header class="top-nav-bar cards-mode-nav">
+        <button id="btn-exit-colordice" class="circle-btn back-btn-cyan" title="Salir">
+          <span class="back-arrow-icon">◀</span>
+        </button>
+        <h2 class="cards-mode-header-title">DADO DE COLORES</h2>
+        <div class="nav-placeholder"></div>
+      </header>
+
+      <div class="cards-players-bar" id="colordice-players-bar"></div>
+
+      <div class="colordice-stage">
+        <div class="colordice-turn-chip">
+          <span>Turno de: </span><strong id="colordice-player-name">Jugador</strong>
+        </div>
+
+        <!-- Dado 3D Interactivo de Colores -->
+        <div class="colordice-cube-wrapper" id="colordice-cube-btn">
+          <div class="colordice-die-face" id="colordice-face-element">
+            <span class="die-face-label" id="colordice-face-text">TIRAR DADO</span>
+          </div>
+        </div>
+
+        <p class="colordice-instruction-hint">Toca el dado para sacar una categoría al azar</p>
+      </div>
+    </section>
+
+    <!-- MODAL DE CARTA FLIP 3D FIEL AL ORIGINAL CON VOLTEO Y DESLIZAMIENTO -->
     <div id="card-modal" class="modal-overlay hidden">
-      <div class="game-card-popup">
-        <div class="game-card-badge" id="card-type-tag">PAGAR</div>
-        <div class="game-card-player-info">
-          <img id="card-player-avatar-img" src="assets/avatars/cerveza.png" alt="Jugador">
-          <span id="card-target-player" class="card-turn-player-name">Jugador 1</span>
+      <div class="card-3d-scene" id="card-3d-scene">
+        <div class="card-3d-flipper" id="card-3d-flipper">
+          
+          <!-- REVERSO / DORSO (IMAGEN: RETO, TOMAR, YO NUNCA, VERDAD, EVENTO, HOT) -->
+          <div class="card-3d-face card-3d-back" id="card-back-face">
+            <div class="card-back-header" id="card-back-title">RETO</div>
+            <div class="card-back-tap-hint">Toca para voltear ↺</div>
+          </div>
+
+          <!-- ANVERSO / REVELADO (IMAGEN: BOCADILLO, TEXTO DEL RETO Y PATO CON CERVEZA) -->
+          <div class="card-3d-face card-3d-front" id="card-front-face">
+            <div class="card-speech-bubble">
+              <p class="card-revealed-text" id="card-phrase-text">Texto de la carta</p>
+            </div>
+            <div class="card-duck-holder">
+              <img src="assets/cards/ocasola.png" alt="Oca" class="card-duck-sprite">
+            </div>
+            <div class="card-front-tap-hint">Toca la carta para continuar ➔</div>
+          </div>
+
         </div>
-        <div class="game-card-body">
-          <p class="game-card-text" id="card-phrase-text">¡Texto del reto!</p>
+      </div>
+    </div>
+
+    <!-- MODAL ¿CÓMO SE JUEGA? (TABLEROS) IDÉNTICO A LA CAPTURA OFICIAL -->
+    <div id="instructions-modal" class="modal-overlay hidden">
+      <div class="instructions-modal-card">
+        <button id="btn-close-instructions" class="instructions-close-btn" title="Cerrar">✕</button>
+        
+        <h2 class="instructions-title">¿CÓMO SE JUEGA?</h2>
+        <div class="instructions-subtitle-row">
+          <span class="instructions-sub-line"></span>
+          <span class="instructions-subtitle">TABLEROS</span>
+          <span class="instructions-sub-line"></span>
         </div>
-        <button id="btn-close-card" class="btn-3d-card-action">HECHO</button>
+
+        <div class="instructions-body-scroll">
+          <p class="instructions-lead-text">
+            Por turnos, el jugador destacado pulsará el dado para revelar el número de casillas a avanzar. Al caer, se mostrará una carta al azar de ese tipo. Hay 6 tipos:
+          </p>
+
+          <div class="instructions-rules-list">
+            <div class="instructions-rule-item">
+              <strong class="rule-title rule-color-tomar">TOMAR:</strong>
+              <span class="rule-desc">la persona indicada en la carta toma, sin importar de quién sea el turno.</span>
+            </div>
+            <div class="instructions-rule-item">
+              <strong class="rule-title rule-color-nhie">YO NUNCA:</strong>
+              <span class="rule-desc">todos los que SÍ lo han hecho, toman, sin importar de quién sea el turno.</span>
+            </div>
+            <div class="instructions-rule-item">
+              <strong class="rule-title rule-color-verdad">VERDAD:</strong>
+              <span class="rule-desc">el jugador en turno debe contestar con la verdad. Si no quiere o falla, toma.</span>
+            </div>
+            <div class="instructions-rule-item">
+              <strong class="rule-title rule-color-reto">RETO:</strong>
+              <span class="rule-desc">el jugador en turno debe hacer el reto. Si no quiere o falla, toma.</span>
+            </div>
+            <div class="instructions-rule-item">
+              <strong class="rule-title rule-color-evento">EVENTO:</strong>
+              <span class="rule-desc">todos los jugadores participan en un mini juego. Los que pierden, toman.</span>
+            </div>
+            <div class="instructions-rule-item">
+              <strong class="rule-title rule-color-hot">HOT:</strong>
+              <span class="rule-desc">como Verdad o Reto, pero más candente.</span>
+            </div>
+          </div>
+
+          <p class="instructions-disclaimer">
+            Nota: Solo es un juego. No es obligatorio tomar alcohol ni realizar ninguna de las acciones.
+          </p>
+        </div>
       </div>
     </div>
 

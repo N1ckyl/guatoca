@@ -9,7 +9,8 @@
     "nhie": "YO NUNCA",
     "tod": "VERDAD O RETO",
     "mlt": "QUIÉN ES MÁS PROBABLE QUE",
-    "versus": "VERSUS"
+    "versus": "VERSUS",
+    "colordice": "DADO DE COLORES"
   },
   "categories": {
     "drink": "Pagar",
@@ -24,7 +25,8 @@
     "mlt": "Quién es más probable",
     "versus": "Versus",
     "start": "START",
-    "meta": "END"
+    "meta": "END",
+    "flash": "Flash"
   },
   "descriptions": {
     "classic": "El tablero más equilibrado y versátil para todos los tipos de fiestas.",
@@ -36,6 +38,7 @@
     "nhie": "Únicamente frases de \"Yo nunca\". Beben todos los jugadores que SÍ hayan realizado la acción.",
     "tod": "Por turnos, cada jugador elige entre Verdad o Reto y bebe si no es lo suficientemente valiente como para cumplir con su frase.",
     "mlt": "Solo frases de \"¿Quién es más probable que...?\". A la cuenta de 3, señalen a quien crean que encaja. El más señalado bebe.",
-    "versus": "Ponte a prueba a ti y a tus amigos. Formad dos equipos y evitad beber enfrentándoos en diferentes juegos."
+    "versus": "Ponte a prueba a ti y a tus amigos. Formad dos equipos y evitad beber enfrentándoos en diferentes juegos.",
+    "colordice": "Lanza el dado de 6 colores. Cada color corresponde a una carta distinta: Tomar, Yo Nunca, Verdad, Reto, Evento o Hot."
   }
 }
